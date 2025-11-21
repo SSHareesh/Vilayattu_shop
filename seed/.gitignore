@@ -37,6 +37,3 @@ out/
 # OS files
 .DS_Store
 Thumbs.db
-
-# Seed files
-seed/ .vilayattu_products.xlsx

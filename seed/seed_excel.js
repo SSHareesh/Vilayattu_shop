@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 
 // --- 1. PostgreSQL Connection ---
-// (Ensure these details match your local setup)
+
 const pool = new Pool({
   user: DB_USER,
   host: DB_HOST,
@@ -40,7 +40,6 @@ async function getOrCreateCategory(client, parentName, subName) {
     return parentId;
   } catch (err) {
     console.error(`Error with category "${subName || parentName}":`, err.message);
-    // Return null or throw to indicate failure
     return null;
   }
 }
@@ -52,7 +51,6 @@ async function seedProducts() {
   console.log("Database client connected.");
 
   try {
-    // Use path.join with __dirname for a reliable file path
     const filePath = path.join(__dirname, 'vilayattu_products.xlsx');
     const workbook = xlsx.readFile(filePath);
     const sheetName = workbook.SheetNames[0];
@@ -60,7 +58,6 @@ async function seedProducts() {
 
     console.log(`Found ${rows.length} rows in the Excel file. Starting transaction...`);
     
-    // Start the transaction
     await client.query('BEGIN');
 
     for (const p of rows) {
@@ -85,18 +82,14 @@ async function seedProducts() {
       console.log(`  -> Queued for insert: ${p.product_name}`);
     }
 
-    // Commit the transaction if all products were processed successfully
     await client.query('COMMIT');
     console.log("✅ Transaction committed! All data has been saved.");
 
   } catch (err) {
-    // If any error occurred, roll back the entire transaction
     await client.query('ROLLBACK');
     console.error("\n❌ An error occurred. Transaction has been rolled back.", err);
-    // Re-throw the error to be caught by the endpoint handler
     throw err;
   } finally {
-    // Always release the client back to the pool
     client.release();
     console.log("Database client released.");
   }
