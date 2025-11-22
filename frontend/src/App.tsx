@@ -1,23 +1,23 @@
 import { Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
-
-// Temporary Home Placeholder
-const Home = () => (
-  <div className="p-10 text-center">
-    <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">Welcome to Vilayattu Shop</h1>
-    <p className="text-gray-600 dark:text-gray-300">Your premium destination for sports gear.</p>
-  </div>
-);
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Products from './pages/Products';
 
 function App() {
   return (
     <Layout>
       <Routes>
+        {/* Main Home Route */}
         <Route path="/" element={<Home />} />
-        {/* We will build these pages next */}
-        <Route path="/login" element={<div className="p-20 text-center dark:text-white">Login Page Coming Soon</div>} />
-        <Route path="/register" element={<div className="p-20 text-center dark:text-white">Register Page Coming Soon</div>} />
-        <Route path="/products" element={<div className="p-20 text-center dark:text-white">Products Page Coming Soon</div>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/products" element={<Products />} />
+        {/* Placeholder Routes for future development */}
+        <Route path="/product/:id" element={<div className="p-20 text-center dark:text-white">Product Detail Page Coming Soon</div>} />
+        <Route path="/cart" element={<div className="p-20 text-center dark:text-white">Cart Page Coming Soon</div>} />
+        <Route path="/profile" element={<div className="p-20 text-center dark:text-white">Profile Page Coming Soon</div>} />
       </Routes>
     </Layout>
   );
