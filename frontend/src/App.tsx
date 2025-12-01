@@ -6,6 +6,8 @@ import Register from './pages/Register';
 import Products from './pages/Products';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
+import ProductDetail from './pages/ProductDetail';
+import Profile from './pages/Profile';
 
 function App() {
   return (
@@ -18,10 +20,12 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/profile" element={<Profile />} />
 
         {/* Placeholder Routes for future development */}
-        <Route path="/product/:id" element={<div className="p-20 text-center dark:text-white">Product Detail Page Coming Soon</div>} />
-        <Route path="/profile" element={<div className="p-20 text-center dark:text-white">Profile Page Coming Soon</div>} />
+        <Route path="*" element={<div className="p-20 text-center dark:text-white font-bold text-xl">404 - Page Not Found</div>} />
+
       </Routes>
     </Layout>
   );
