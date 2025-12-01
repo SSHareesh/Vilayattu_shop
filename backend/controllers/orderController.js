@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const pool = require('../config/db');
 const orderQueries = require('../queries/orderQueries');
 const cartQueries = require('../queries/cartQueries');
 
@@ -6,7 +6,7 @@ const addOrderItems = async (req, res) => {
     const { shippingAddressId } = req.body;
     const userId = req.user.user_id;
 
-    const client = await db.pool.connect();
+    const client = await pool.connect();
 
     try {
         // Get cart items for the user
@@ -43,8 +43,8 @@ const addOrderItems = async (req, res) => {
 
     } catch (error) {
         await client.query('ROLLBACK');
-        console.error(error.message);
-        res.status(500).json({ message: 'Server Error' });
+        console.error('Order creation error:', error.message);
+        res.status(500).json({ message: 'Server Error during checkout' });
     } finally {
         client.release();
     }
@@ -52,7 +52,7 @@ const addOrderItems = async (req, res) => {
 
 const getMyOrders = async (req, res) => {
     try {
-        const { rows } = await db.query(orderQueries.getUserOrders, [req.user.user_id]);
+        const { rows } = await pool.query(orderQueries.getUserOrders, [req.user.user_id]);
         res.json(rows);
     } catch (error) {
         console.error(error.message);
@@ -63,7 +63,7 @@ const getMyOrders = async (req, res) => {
 
 const getOrderById = async (req, res) => {
     try {
-        const { rows } = await db.query(orderQueries.getOrderDetails, [req.params.id, req.user.user_id]);
+        const { rows } = await pool.query(orderQueries.getOrderDetails, [req.params.id, req.user.user_id]);
 
         if (rows.length === 0) {
             return res.status(404).json({ message: 'Order not found' });
