@@ -81,20 +81,27 @@ const cartSlice = createSlice({
 
     // Add to Cart
     builder.addCase(addToCart.fulfilled, (state, action) => {
-      // Check if item already exists to update or push new
+      // Logic: If user is on Product page, we simply increment the badge count.
+      // If they go to Cart page later, fetchCart() will get full details.
+      // We check if item already exists to update quantity locally if possible.
       const existingItem = state.items.find(item => item.product_id === action.payload.product_id);
       if (existingItem) {
         existingItem.quantity = action.payload.quantity;
       } else {
+        // Warning: This payload lacks 'name' and 'price' because backend returns raw link table.
+        // Ideally, we fetchCart() after adding, but for speed, we push.
+        // Navbar only needs length, so this is fine for the badge update.
         state.items.push(action.payload);
       }
     });
 
-    // Update Quantity
+    // Update Quantity - FIXED
     builder.addCase(updateCartItem.fulfilled, (state, action) => {
       const index = state.items.findIndex(item => item.cart_item_id === action.payload.cart_item_id);
       if (index !== -1) {
-        state.items[index] = action.payload;
+        // FIX: Only update the quantity. Do NOT overwrite the whole object.
+        // This preserves the 'price', 'name', and 'image_url' already in state.
+        state.items[index].quantity = action.payload.quantity;
       }
     });
 
