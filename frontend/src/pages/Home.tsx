@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowRight, Trophy, Activity, Target, ChevronRight, Loader } from 'lucide-react';
+import { ArrowRight, Trophy, Activity, Target, Loader } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/common/ProductCard';
 import { Product } from '../types';
@@ -9,7 +9,6 @@ const CATEGORIES = [
   { id: 1, name: 'Cricket', icon: Trophy, color: 'bg-blue-500' },
   { id: 2, name: 'Football', icon: Activity, color: 'bg-green-500' },
   { id: 3, name: 'Badminton', icon: Target, color: 'bg-orange-500' },
-  { id: 4, name: 'Indoor Games', icon: ChevronRight, color: 'bg-purple-500' },
 ];
 
 const Home = () => {
@@ -39,7 +38,7 @@ const Home = () => {
     <div className="space-y-16 pb-16">
       
       {/* Hero Section */}
-      <section className="relative bg-gray-900 text-white overflow-hidden">
+      <section className="relative bg-gray-50 dark:bg-gray-900 text-black dark:text-white overflow-hidden">
         {/* Abstract Background Shapes */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
           <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary-light rounded-full blur-3xl opacity-20"></div>
@@ -54,7 +53,7 @@ const Home = () => {
                 Inner Athlete
               </span>
             </h1>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto lg:mx-0">
+            <p className="text-xl text-gray-900 dark:text-gray-50 max-w-2xl mx-auto lg:mx-0">
               Premium equipment for Cricket, Football, Badminton, and more. 
               Elevate your game with Vilayattu Shop.
             </p>
@@ -67,7 +66,7 @@ const Home = () => {
               </Link>
               <Link 
                 to="/about" 
-                className="px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-bold text-lg transition-all border border-white/20"
+                className="px-8 py-4 rounded-full bg-gray-800 dark:bg-white/10 hover:bg-black/100 dark:hover:bg-white/20 backdrop-blur-sm text-white font-bold text-lg transition-all border border-white/20"
               >
                 Learn More
               </Link>
@@ -75,8 +74,11 @@ const Home = () => {
           </div>
           {/* Hero Image Placeholder */}
           <div className="lg:w-1/2 mt-12 lg:mt-0 relative">
-             <div className="w-full aspect-video rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 flex items-center justify-center shadow-2xl">
-                <p className="text-gray-500 font-mono">Hero Image / 3D Asset</p>
+             <div className="w-full aspect-video bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 flex items-center justify-center shadow-2xl">
+                <img 
+                src="/images/home/hero-page.png" 
+                alt="Sports equipment home page" 
+                />
              </div>
           </div>
         </div>
@@ -91,7 +93,7 @@ const Home = () => {
           </Link>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {CATEGORIES.map((cat) => (
             <Link 
               key={cat.id} 
@@ -147,25 +149,25 @@ const Home = () => {
       </section>
       
       {/* Newsletter / CTA Section */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-primary-light rounded-3xl p-8 lg:p-16 text-center text-white relative overflow-hidden">
            <div className="absolute top-0 left-0 w-full h-full bg-black/10"></div>
            <div className="relative z-10 max-w-2xl mx-auto">
              <h2 className="text-3xl font-bold mb-4">Join the Vilayattu Club</h2>
              <p className="text-blue-100 mb-8">Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.</p>
              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-               <input 
+               <input disabled
                  type="email" 
-                 placeholder="Enter your email" 
-                 className="flex-grow px-6 py-3 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
+                 placeholder="coming soon..." 
+                 className="cursor-not-allowed flex-grow px-6 py-3 rounded-full text-white-100 focus:outline-none focus:ring-2 focus:ring-white"
                />
-               <button className="px-8 py-3 bg-gray-900 text-white rounded-full font-bold hover:bg-gray-800 transition-colors">
+               <button disabled className="cursor-not-allowed px-8 py-3 bg-gray-900 text-white rounded-full font-bold hover:bg-gray-800 transition-colors">
                  Subscribe
                </button>
              </div>
            </div>
         </div>
-      </section>
+      </section> 
 
     </div>
   );

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ShoppingCart, User, Search, Menu, X, Sun, Moon, LogOut } from 'lucide-react';
+import { ShoppingCart, User, Menu, X, Sun, Moon, LogOut } from 'lucide-react';
 import { useTheme } from '../../hooks/useTheme';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../store/store';
@@ -54,22 +54,22 @@ const Navbar = () => {
             <Link to="/products" className="text-gray-600 dark:text-gray-300 hover:text-primary-light dark:hover:text-primary-dark font-medium transition-colors">
               Shop
             </Link>
-            <Link to="/about" className="text-gray-600 dark:text-gray-300 hover:text-primary-light dark:hover:text-primary-dark font-medium transition-colors">
-              About
+            <Link to="/profile" className="text-gray-600 dark:text-gray-300 hover:text-primary-light dark:hover:text-primary-dark font-medium transition-colors">
+              Profile
             </Link>
           </div>
 
           {/* Right Side Actions */}
           <div className="hidden md:flex items-center space-x-6">
             {/* Search */}
-            <div className="relative group">
-              <input 
+            {/* <div className="relative group">
+              <input disabled 
                 type="text" 
                 placeholder="Search gears..." 
-                className="pl-10 pr-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-primary-light w-40 transition-all group-hover:w-64 text-gray-800 dark:text-gray-200"
+                className="cursor-not-allowed pl-10 pr-4 py-1.5 rounded-full bg-gray-100 dark:bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-primary-light w-40 transition-all group-hover:w-64 text-gray-800 dark:text-gray-200"
               />
               <Search className="w-4 h-4 text-gray-500 absolute left-3 top-2.5" />
-            </div>
+            </div> */}
 
             {/* Theme Toggle */}
             <button 

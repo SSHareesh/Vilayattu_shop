@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
-  ShoppingCart, Heart, ArrowLeft, Star, Truck, ShieldCheck, 
-  RotateCcw, Minus, Plus, Share2 
+  ShoppingCart, ArrowLeft, Star, Truck, ShieldCheck, 
+  RotateCcw, Minus, Plus
 } from 'lucide-react';
 import { productService } from '../api/productService';
 import { addToCart } from '../store/slices/cartSlice';
@@ -87,9 +87,9 @@ const ProductDetail = () => {
                  alt={product.name} 
                  className="w-full max-w-md object-contain mix-blend-multiply dark:mix-blend-normal hover:scale-105 transition-transform duration-500"
                />
-               <button className="absolute top-6 right-6 p-3 bg-white dark:bg-gray-800 rounded-full shadow-md text-gray-400 hover:text-red-500 transition-colors">
+               {/* <button className="absolute top-6 right-6 p-3 bg-white dark:bg-gray-800 rounded-full shadow-md text-gray-400 hover:text-red-500 transition-colors">
                  <Heart className="w-6 h-6" />
-               </button>
+               </button> */}
             </div>
 
             {/* RIGHT: Product Info */}
@@ -166,9 +166,9 @@ const ProductDetail = () => {
                     {addingToCart ? 'Adding...' : 'Add to Cart'}
                   </button>
                   
-                  <button className="p-4 border border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                  {/* <button className="p-4 border border-gray-200 dark:border-gray-700 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
                     <Share2 className="w-5 h-5 text-gray-600 dark:text-gray-300" />
-                  </button>
+                  </button> */}
                 </div>
 
                 {/* Features */}

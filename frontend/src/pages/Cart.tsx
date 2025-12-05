@@ -87,13 +87,12 @@ const Cart = () => {
                 <div className="flex gap-2">
                   <div className="relative flex-grow">
                     <Tag className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" />
-                    <input 
-                      type="text" 
+                    <input disabled
                       placeholder="Enter code" 
-                      className="w-full pl-9 pr-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:ring-2 focus:ring-primary-light outline-none"
+                      className="cursor-not-allowed w-full pl-9 pr-4 py-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg text-sm focus:ring-2 focus:ring-primary-light outline-none"
                     />
                   </div>
-                  <button className="px-4 py-2 bg-gray-900 dark:bg-gray-700 text-white rounded-lg text-sm font-bold hover:bg-gray-800 transition-colors">
+                  <button className="cursor-not-allowed px-4 py-2 bg-gray-700 dark:bg-gray-500 text-white rounded-lg text-sm font-bold hover:bg-gray-700 transition-colors">
                     Apply
                   </button>
                 </div>

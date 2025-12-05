@@ -50,7 +50,7 @@ const Register = () => {
       <div className="hidden lg:block lg:w-1/2 relative overflow-hidden bg-gray-900">
         <div className="absolute inset-0 bg-gradient-to-bl from-secondary-light/90 to-emerald-900/90 z-10 mix-blend-multiply" />
         <img 
-          src="https://images.unsplash.com/photo-1526676037777-05a232554f77?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" 
+          src="https://images.unsplash.com/photo-1517649763962-0c623066013b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" 
           alt="Sports equipment" 
           className="absolute inset-0 w-full h-full object-cover"
         />

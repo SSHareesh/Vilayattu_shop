@@ -1,4 +1,4 @@
-import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -16,9 +16,9 @@ const Footer = () => {
               Elevate your game with gear that matches your passion.
             </p>
             <div className="flex space-x-4 pt-2">
-              <a href="#" className="text-gray-400 hover:text-primary-light transition-colors"><Facebook className="w-5 h-5" /></a>
-              <a href="#" className="text-gray-400 hover:text-primary-light transition-colors"><Twitter className="w-5 h-5" /></a>
-              <a href="#" className="text-gray-400 hover:text-primary-light transition-colors"><Instagram className="w-5 h-5" /></a>
+              <a href="https://github.com/SSHareesh/" className="text-gray-400 hover:text-primary-light transition-colors"><Github className="w-5 h-5" /></a>
+              <a href="https://www.linkedin.com/in/hareesh-s-s-7478b1257" className="text-gray-400 hover:text-primary-light transition-colors"><Linkedin className="w-5 h-5" /></a>
+              <a href="mailto:hareeshseenu95@gmail.com" className="text-gray-400 hover:text-primary-light transition-colors"><Mail className="w-5 h-5" /></a>
             </div>
           </div>
 
@@ -26,10 +26,10 @@ const Footer = () => {
           <div>
             <h4 className="text-gray-900 dark:text-white font-semibold mb-4">Shop</h4>
             <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-              <li><a href="#" className="hover:text-primary-light transition-colors">Cricket</a></li>
-              <li><a href="#" className="hover:text-primary-light transition-colors">Football</a></li>
-              <li><a href="#" className="hover:text-primary-light transition-colors">Badminton</a></li>
-              <li><a href="#" className="hover:text-primary-light transition-colors">New Arrivals</a></li>
+              <li><a href="/products?category=Cricket" className="hover:text-primary-light transition-colors">Cricket</a></li>
+              <li><a href="/products?category=Football" className="hover:text-primary-light transition-colors">Football</a></li>
+              <li><a href="/products?category=Badminton" className="hover:text-primary-light transition-colors">Badminton</a></li>
+              <li><a href="/products" className="hover:text-primary-light transition-colors">New Arrivals</a></li>
             </ul>
           </div>
 
@@ -37,10 +37,10 @@ const Footer = () => {
           <div>
             <h4 className="text-gray-900 dark:text-white font-semibold mb-4">Support</h4>
             <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-              <li><a href="#" className="hover:text-primary-light transition-colors">Track Order</a></li>
-              <li><a href="#" className="hover:text-primary-light transition-colors">Returns & Exchanges</a></li>
-              <li><a href="#" className="hover:text-primary-light transition-colors">Shipping Info</a></li>
-              <li><a href="#" className="hover:text-primary-light transition-colors">FAQs</a></li>
+              <li><a href="/Profile" className="hover:text-primary-light transition-colors">Track Order</a></li>
+              <li><a href="/Profile" className="hover:text-primary-light transition-colors">Returns & Exchanges</a></li>
+              {/* <li><a href="" className="hover:text-primary-light transition-colors">Shipping Info</a></li> */}
+              <li><a href="mailto:vilayattushop@gmail.com" className="hover:text-primary-light transition-colors">FAQs</a></li>
             </ul>
           </div>
 
@@ -54,11 +54,11 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-primary-light shrink-0" />
-                <span>+91 98765 43210</span>
+                <span>+91 86102 36842</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-primary-light shrink-0" />
-                <span>support@vilayattu.shop</span>
+                <span>vilayattushop@gmail.com</span>
               </li>
             </ul>
           </div>
