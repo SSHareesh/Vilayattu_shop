@@ -7,7 +7,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 // We use that in production, or separate variables in development
 const connectionString = process.env.DATABASE_URL 
   ? process.env.DATABASE_URL 
-  : `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
+  : `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 
 const pool = new Pool({
   connectionString: connectionString,
