@@ -1,19 +1,19 @@
 const { Pool } = require('pg');
-require('dotenv').config(); // Adjust path if needed
+require('dotenv').config();
 
+const isProduction = process.env.NODE_ENV === 'production';
+
+// Render provides a single connection string called DATABASE_URL
+// We use that in production, or separate variables in development
+const connectionString = process.env.DATABASE_URL 
+  ? process.env.DATABASE_URL 
+  : `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
 
 const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT,
+  connectionString: connectionString,
+  ssl: isProduction ? { rejectUnauthorized: false } : false // SSL required for Render
 });
 
-console.log('Is the DB pool object created?', !!pool);
+console.log("DEBUG db.js: Pool created. Production mode:", isProduction);
 
-module.exports = pool;
-// Export the query function to be used throughout the application
-// module.exports = {
-//   query: (text, params) => pool.query(text, params),
-// };
+module.exports = pool; 
