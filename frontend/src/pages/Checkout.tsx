@@ -78,7 +78,7 @@ const Checkout = () => {
     try {
       const result = await orderService.createOrder(selectedAddressId);
       dispatch(clearCart());
-      alert(`Order Placed Successfully! Order ID: ${result.orderId}`);
+      alert(`Order Placed Successfully! Order ID: ${result.orderId} Check your email for order summary`);
       navigate('/products');
     } catch (err) {
       console.error(err);
