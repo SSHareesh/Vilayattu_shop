@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { MapPin, CreditCard, CheckCircle, Plus, Loader, Shield, Lock } from 'lucide-react';
+import { CreditCard, CheckCircle, Plus, Loader, Shield, Lock } from 'lucide-react';
 import { RootState, AppDispatch } from '../store/store';
 import { addressService, Address } from '../api/addressService';
 import { orderService } from '../api/orderService';

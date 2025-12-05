@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { User, Package, MapPin, LogOut, CreditCard, Settings, ChevronRight, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { Package, MapPin, LogOut, CreditCard, Settings, Clock } from 'lucide-react';
 import { RootState } from '../store/store';
 import { logout } from '../store/slices/authSlice';
 import { orderService, Order } from '../api/orderService';

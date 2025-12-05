@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Loader, Search, SlidersHorizontal, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import { Search, SlidersHorizontal, PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import ProductCard from '../components/common/ProductCard';
 import ProductFilters from '../components/common/ProductFilters';
 import { Product } from '../types';

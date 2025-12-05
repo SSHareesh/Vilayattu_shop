@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowRight, Trophy, Activity, Target, ChevronRight, Loader } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/common/ProductCard';
