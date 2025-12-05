@@ -16,7 +16,9 @@ const Checkout = () => {
   const [step, setStep] = useState(1); // 1: Address, 2: Payment
   const [addresses, setAddresses] = useState<Address[]>([]);
   const [selectedAddressId, setSelectedAddressId] = useState<number | null>(null);
-  const [loading, setLoading] = useState(false);
+  
+  // FIX: We are now using this variable in the JSX below
+  const [loading, setLoading] = useState(false); 
   const [placingOrder, setPlacingOrder] = useState(false);
 
   // New Address Form State
@@ -43,8 +45,6 @@ const Checkout = () => {
     const loadAddresses = async () => {
       setLoading(true);
       try {
-        // In a real scenario, we fetch from backend. 
-        // For this demo, if backend returns empty/error, we handle UI accordingly
         const data = await addressService.getMyAddresses();
         setAddresses(data);
       } catch (err) {
@@ -65,7 +65,7 @@ const Checkout = () => {
       setSelectedAddressId(added.address_id);
       setShowAddressForm(false);
     } catch (err) {
-      alert('Failed to add address. Ensure backend /api/addresses exists.');
+      alert('Failed to add address.');
     } finally {
       setLoading(false);
     }
@@ -77,10 +77,9 @@ const Checkout = () => {
     setPlacingOrder(true);
     try {
       const result = await orderService.createOrder(selectedAddressId);
-      // Order success!
       dispatch(clearCart());
       alert(`Order Placed Successfully! Order ID: ${result.orderId}`);
-      navigate('/products'); // Or navigate to an Order Success page
+      navigate('/products');
     } catch (err) {
       console.error(err);
       alert('Failed to place order. Please try again.');
@@ -90,7 +89,15 @@ const Checkout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 relative">
+      
+      {/* FIX: Use the loading variable to show a spinner overlay */}
+      {loading && (
+        <div className="absolute inset-0 bg-white/50 dark:bg-gray-900/50 z-50 flex items-center justify-center backdrop-blur-sm">
+          <Loader className="w-10 h-10 text-primary-light animate-spin" />
+        </div>
+      )}
+
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Checkout</h1>
 
@@ -135,7 +142,6 @@ const Checkout = () => {
                       </div>
                     ))}
                     
-                    {/* Add Address Button */}
                     <button 
                       onClick={() => setShowAddressForm(true)}
                       className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-xl p-4 flex flex-col items-center justify-center text-gray-500 hover:border-primary-light hover:text-primary-light transition-colors min-h-[120px]"
