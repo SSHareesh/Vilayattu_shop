@@ -1,20 +1,24 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-// 1. Create the Transporter with EXPLICIT Settings
-// We use port 465 (SSL) which is more reliable on cloud servers than default settings
+// 1. Create the Transporter with Render-Optimized Settings
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
-  port: 465,
-  secure: true, // use SSL
+  port: 587, // Standard secure port for cloud apps
+  secure: false, // false for 587 (uses STARTTLS), true for 465
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
-  // Setup connection timeout settings
-  connectionTimeout: 10000, // 10 seconds
-  greetingTimeout: 5000,    // 5 seconds
-  socketTimeout: 10000,     // 10 seconds
+  // --- CRITICAL FIX FOR RENDER TIMEOUTS ---
+  family: 4, // Force IPv4. Prevents hanging on IPv6 lookups.
+  // ----------------------------------------
+  connectionTimeout: 10000, 
+  greetingTimeout: 5000,    
+  socketTimeout: 10000,     
+  tls: {
+    rejectUnauthorized: true, // Keep true for security
+  }
 });
 
 // Verify connection configuration on startup
@@ -22,7 +26,7 @@ transporter.verify(function (error, success) {
   if (error) {
     console.log('❌ Email Service Error:', error);
   } else {
-    console.log('✅ Email Server is ready to take our messages');
+    console.log('✅ Updated Email Server is ready ');
   }
 });
 
