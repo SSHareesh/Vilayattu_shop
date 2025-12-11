@@ -1,32 +1,42 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
-// 1. Create the Transporter with Render-Optimized Settings
+// --- DEBUG CHECK ---
+console.log("Initializing Email Service...");
+if (!process.env.EMAIL_USER) console.error("❌ ERROR: EMAIL_USER is missing in Environment Variables!");
+if (!process.env.EMAIL_PASS) console.error("❌ ERROR: EMAIL_PASS is missing in Environment Variables!");
+
+// 1. Create the Transporter
+// SWITCHING TO PORT 465 (SSL) + IPv4 FORCE
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
-  port: 587, // Standard secure port for cloud apps
-  secure: false, // false for 587 (uses STARTTLS), true for 465
+  port: 465, // Using 465 (SSL) instead of 587 (STARTTLS) to prevent handshake timeouts
+  secure: true, // Must be true for port 465
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
-  // --- CRITICAL FIX FOR RENDER TIMEOUTS ---
-  family: 4, // Force IPv4. Prevents hanging on IPv6 lookups.
-  // ----------------------------------------
+  // Force IPv4. Render containers sometimes hang on IPv6 DNS resolution for Gmail
+  family: 4, 
+  
+  // Enable detailed logs to debug on Render
+  logger: true,
+  debug: true, 
+  
+  // connection timeout settings
   connectionTimeout: 10000, 
   greetingTimeout: 5000,    
-  socketTimeout: 10000,     
-  tls: {
-    rejectUnauthorized: true, // Keep true for security
-  }
+  socketTimeout: 10000,
 });
 
 // Verify connection configuration on startup
 transporter.verify(function (error, success) {
   if (error) {
-    console.log('❌ Email Service Error:', error);
+    console.log('❌ Email Service Error:', error.message);
+    if (error.code === 'EAUTH') console.log('--> Check EMAIL_USER/PASS in Render.');
+    if (error.code === 'ETIMEDOUT') console.log('--> Timeout: Firewall or IPv6 issue. Retry or check Render network settings.');
   } else {
-    console.log('✅ Updated Email Server is ready ');
+    console.log('✅ Email Server is ready (Port 465/SSL)');
   }
 });
 
@@ -123,7 +133,7 @@ const sendNewOrderEmail = async (orderDetails) => {
 
     console.log(`📧 Emails sent successfully for Order #${orderId}`);
   } catch (error) {
-    console.error('Error sending email:', error);
+    console.error('Error sending email:', error.message);
   }
 };
 
