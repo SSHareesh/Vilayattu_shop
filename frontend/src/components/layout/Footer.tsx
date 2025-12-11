@@ -37,8 +37,8 @@ const Footer = () => {
           <div>
             <h4 className="text-gray-900 dark:text-white font-semibold mb-4">Support</h4>
             <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-              <li><a href="/Profile" className="hover:text-primary-light transition-colors">Track Order</a></li>
-              <li><a href="/Profile" className="hover:text-primary-light transition-colors">Returns & Exchanges</a></li>
+              <li><a href="/profile" className="hover:text-primary-light transition-colors">Track Order</a></li>
+              <li><a href="/profile" className="hover:text-primary-light transition-colors">Returns & Exchanges</a></li>
               {/* <li><a href="" className="hover:text-primary-light transition-colors">Shipping Info</a></li> */}
               <li><a href="mailto:vilayattushop@gmail.com" className="hover:text-primary-light transition-colors">FAQs</a></li>
             </ul>

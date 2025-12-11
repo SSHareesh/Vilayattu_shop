@@ -64,12 +64,12 @@ const Home = () => {
               >
                 Shop Now <ArrowRight className="w-5 h-5" />
               </Link>
-              <Link 
+              {/* <Link 
                 to="/about" 
                 className="px-8 py-4 rounded-full bg-gray-800 dark:bg-white/10 hover:bg-black/100 dark:hover:bg-white/20 backdrop-blur-sm text-white font-bold text-lg transition-all border border-white/20"
               >
                 Learn More
-              </Link>
+              </Link> */}
             </div>
           </div>
           {/* Hero Image Placeholder */}
