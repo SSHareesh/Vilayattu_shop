@@ -1,4 +1,5 @@
 import { Github, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -26,10 +27,10 @@ const Footer = () => {
           <div>
             <h4 className="text-gray-900 dark:text-white font-semibold mb-4">Shop</h4>
             <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-              <li><a href="/products?category=Cricket" className="hover:text-primary-light transition-colors">Cricket</a></li>
-              <li><a href="/products?category=Football" className="hover:text-primary-light transition-colors">Football</a></li>
-              <li><a href="/products?category=Badminton" className="hover:text-primary-light transition-colors">Badminton</a></li>
-              <li><a href="/products" className="hover:text-primary-light transition-colors">New Arrivals</a></li>
+              <li><Link to="/products?category=Cricket" className="hover:text-primary-light transition-colors">Cricket</Link></li>
+              <li><Link to="/products?category=Football" className="hover:text-primary-light transition-colors">Football</Link></li>
+              <li><Link to="/products?category=Badminton" className="fhover:text-primary-light transition-colors">Badminton</Link></li>
+              <li><Link to="/products" className="hover:text-primary-light transition-colors">New Arrivals</Link></li>
             </ul>
           </div>
 
@@ -37,8 +38,8 @@ const Footer = () => {
           <div>
             <h4 className="text-gray-900 dark:text-white font-semibold mb-4">Support</h4>
             <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-400">
-              <li><a href="/profile" className="hover:text-primary-light transition-colors">Track Order</a></li>
-              <li><a href="/profile" className="hover:text-primary-light transition-colors">Returns & Exchanges</a></li>
+              <li><Link to="/profile" className="hover:text-primary-light transition-colors">Track Order</Link></li>
+              <li><Link to="/profile" className="hover:text-primary-light transition-colors">Returns & Exchanges </Link></li>
               {/* <li><a href="" className="hover:text-primary-light transition-colors">Shipping Info</a></li> */}
               <li><a href="mailto:vilayattushop@gmail.com" className="hover:text-primary-light transition-colors">FAQs</a></li>
             </ul>
