@@ -2,41 +2,46 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 // --- DEBUG CHECK ---
-console.log("Initializing Email Service...");
+console.log("--- INITIALIZING EMAIL SERVICE (POOLED VERSION) ---"); // Look for this in Render logs!
 if (!process.env.EMAIL_USER) console.error("❌ ERROR: EMAIL_USER is missing in Environment Variables!");
 if (!process.env.EMAIL_PASS) console.error("❌ ERROR: EMAIL_PASS is missing in Environment Variables!");
 
-// 1. Create the Transporter
-// SWITCHING TO PORT 465 (SSL) + IPv4 FORCE
+// 1. Create the Transporter using POOLED connections
+// This keeps the connection open and is often more stable on cloud servers
 const transporter = nodemailer.createTransport({
+  pool: true, // Use pooled connections
+  maxConnections: 1, // Limit to 1 connection to avoid Gmail rate limits
+  maxMessages: Infinity,
+  
   host: 'smtp.gmail.com',
-  port: 465, // Using 465 (SSL) instead of 587 (STARTTLS) to prevent handshake timeouts
-  secure: true, // Must be true for port 465
+  port: 465, // Secure SSL port
+  secure: true, 
+  
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
-  // Force IPv4. Render containers sometimes hang on IPv6 DNS resolution for Gmail
+  
+  // Force IPv4 to avoid IPv6 routing issues on Render
   family: 4, 
   
-  // Enable detailed logs to debug on Render
+  // Generous timeouts for cloud latency
+  connectionTimeout: 10000, 
+  greetingTimeout: 5000,    
+  socketTimeout: 10000,
+  
+  // Debug logs
   logger: true,
   debug: true, 
-  
-  // connection timeout settings
-  connectionTimeout: 60000, 
-  greetingTimeout: 30000,    
-  socketTimeout: 60000,
 });
 
 // Verify connection configuration on startup
 transporter.verify(function (error, success) {
   if (error) {
-    console.log('❌ Email Service Error:', error.message);
-    if (error.code === 'EAUTH') console.log('--> Check EMAIL_USER/PASS in Render.');
-    if (error.code === 'ETIMEDOUT') console.log('--> Timeout: Firewall or IPv6 issue. Retry or check Render network settings.');
+    console.log('❌ Email Service Verify Error:', error.message);
+    if (error.code === 'ETIMEDOUT') console.log('--> Still timing out. This is likely a Render network IP block on Gmail.');
   } else {
-    console.log('✅ Email Server is ready (Port 465/SSL)');
+    console.log('✅ Email Server is ready (Pooled/SSL)');
   }
 });
 
@@ -101,7 +106,7 @@ const generateOrderHtml = (orderDetails, isForAdmin) => {
         </table>
         
         <p style="margin-top: 20px; font-size: 12px; color: #666; text-align: center;">
-          ${isForAdmin ? 'Automated Admin Notification' : 'Thank you for shopping with Vilayattu Shop!'}
+          Automated Notification from Vilayattu Shop
         </p>
       </div>
     `;
@@ -126,6 +131,7 @@ const sendNewOrderEmail = async (orderDetails) => {
       html: generateOrderHtml(orderDetails, false)
     };
 
+    // Send emails
     await Promise.all([
       transporter.sendMail(adminMailOptions),
       transporter.sendMail(customerMailOptions)
