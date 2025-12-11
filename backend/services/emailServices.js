@@ -1,20 +1,35 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config();
-// 1. Create the Transporter
+
+// 1. Create the Transporter with EXPLICIT Settings
+// We use port 465 (SSL) which is more reliable on cloud servers than default settings
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true, // use SSL
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+  // Setup connection timeout settings
+  connectionTimeout: 10000, // 10 seconds
+  greetingTimeout: 5000,    // 5 seconds
+  socketTimeout: 10000,     // 10 seconds
+});
+
+// Verify connection configuration on startup
+transporter.verify(function (error, success) {
+  if (error) {
+    console.log('❌ Email Service Error:', error);
+  } else {
+    console.log('✅ Email Server is ready to take our messages');
+  }
 });
 
 // Helper: Generate HTML Content
-// We pass 'isForAdmin' to slightly tweak the greeting/title
 const generateOrderHtml = (orderDetails, isForAdmin) => {
   const { orderId, user, address, items, total } = orderDetails;
 
-  // Create HTML Table for Items
   const itemsHtml = items.map(item => `
     <tr>
       <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.name}</td>
@@ -83,32 +98,28 @@ const sendNewOrderEmail = async (orderDetails) => {
   const { orderId, user, total } = orderDetails;
 
   try {
-    // --- Send Email to ADMIN ---
     const adminMailOptions = {
       from: `"Vilayattu Shop" <${process.env.EMAIL_USER}>`,
       to: process.env.ADMIN_EMAIL, 
       subject: `🚀 New Order #${orderId} Received! - ₹${total}`,
-      html: generateOrderHtml(orderDetails, true) // True = Admin Version
+      html: generateOrderHtml(orderDetails, true)
     };
 
-    // --- Send Email to CUSTOMER ---
     const customerMailOptions = {
       from: `"Vilayattu Shop" <${process.env.EMAIL_USER}>`,
-      to: user.email, // Use the user's email from the order details
+      to: user.email, 
       subject: `✅ Order Confirmation - Vilayattu Shop Order #${orderId}`,
-      html: generateOrderHtml(orderDetails, false) // False = Customer Version
+      html: generateOrderHtml(orderDetails, false)
     };
 
-    // Send both in parallel
     await Promise.all([
       transporter.sendMail(adminMailOptions),
       transporter.sendMail(customerMailOptions)
     ]);
 
-    console.log(`📧 Emails sent successfully for Order #${orderId} (Admin & User)`);
+    console.log(`📧 Emails sent successfully for Order #${orderId}`);
   } catch (error) {
     console.error('Error sending email:', error);
-    // We catch the error so it doesn't crash the server, but we log it.
   }
 };
 
